@@ -1,21 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aaibar-h <aaibar-h@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/27 09:04:12 by aaibar-h          #+#    #+#             */
-/*   Updated: 2023/02/27 12:45:09 by aaibar-h         ###   ########.fr       */
+/*   Created: 2023/02/27 12:21:00 by aaibar-h          #+#    #+#             */
+/*   Updated: 2023/02/27 13:50:52 by aaibar-h         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
-# include <unistd.h>
-# include <stdlib.h>
-# include <stddef.h>
+#include "get_next_line.h"
+#include <fcntl.h>
+#include <stdio.h>
 
-char	*get_next_line(int fd);
-
-#endif
+int main() {
+	int fildes = open("test.txt", O_RDONLY);
+	void *buf;
+	size_t nbytes;
+	get_next_line(fildes);
+	return 0;
+}
