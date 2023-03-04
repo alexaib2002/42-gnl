@@ -6,7 +6,7 @@
 /*   By: aaibar-h <aaibar-h@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 09:04:15 by aaibar-h          #+#    #+#             */
-/*   Updated: 2023/03/04 21:32:51 by aaibar-h         ###   ########.fr       */
+/*   Updated: 2023/03/05 00:44:17 by aaibar-h         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,11 +115,11 @@ char	*ft_merge_strlst(t_list *lst)
 
 	str = ft_calloc(ft_lstsize(lst) * buf_size, sizeof(char));
 	i = 0;
-	while (lst)
+	while (lst && *((unsigned char *) lst->content))
 	{
 		j = 0;
 		while (j < buf_size)
-			str[i++] = ((char *) lst->content)[j++];
+			str[i++] = ((unsigned char *) lst->content)[j++];
 		lst = lst->next;
 	}
 	return (str);

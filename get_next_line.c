@@ -6,7 +6,7 @@
 /*   By: aaibar-h <aaibar-h@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 09:04:10 by aaibar-h          #+#    #+#             */
-/*   Updated: 2023/03/04 21:12:53 by aaibar-h         ###   ########.fr       */
+/*   Updated: 2023/03/04 21:39:53 by aaibar-h         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,12 @@
 
 const static size_t buf_size = 5; // TODO replace by BUFSIZE
 
-/*
-TODO:
- - malloc security checks (after malloc and such)
- - Hardcoded buffer and size
- - If buffer is filled, that means current line continues, but my GNL doesn't think so!
-*/
 char	*get_next_line(int fd)
 {
 	char *buf;
 	t_list *buflst;
 	size_t i;
 	ssize_t res;
-	static size_t fp = 0;
 
 	buf = ft_calloc(buf_size, sizeof(char));
 	if (!buf)
@@ -41,7 +34,6 @@ char	*get_next_line(int fd)
 			res = read(fd, buf + i, 1);
 			if (buf[i] == '\n')
 				break;
-				// res = 0; // hacky, forces an exit by reporting EOF >.<
 			i++;
 		}
 		ft_lstadd_back(&buflst, ft_strlstnew(buf));
@@ -52,7 +44,7 @@ char	*get_next_line(int fd)
 	// EOF check
 	if (!*buf)
 		return (NULL);
-	// TODO hay que concatenar la lista
 	char *final_str = ft_merge_strlst(buflst);
+	ft_lstclear(&buflst, &free);
 	return (final_str);
 }
