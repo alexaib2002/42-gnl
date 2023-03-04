@@ -3,36 +3,42 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aaibar-h <aaibar-h@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aaibar-h <aaibar-h@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 09:04:10 by aaibar-h          #+#    #+#             */
-/*   Updated: 2023/02/27 14:17:16 by aaibar-h         ###   ########.fr       */
+/*   Updated: 2023/03/04 18:55:47 by aaibar-h         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-static int buf_size = 42;
+const static size_t buf_size = 40;
 
-static void	fill_buffer(int fd, const char *buf)
-{
-	int i; // iterador
-	int res;
-
-	i = 0;
-	read(fd, buf, buf_size);
-	while (i < buf_size && res)
-		res = read(fd, buf[i++], buf_size);
-}
-
+/*
+TODO:
+ - malloc security checks (after malloc and such)
+ - Hardcoded buffer and size
+ - If buffer is filled, that means current line continues, but my GNL doesn't think so!
+*/
 char	*get_next_line(int fd)
 {
-	const char *buf = calloc(buf_size, sizeof(char)); // FIXME hardcoded buffer and size
-	int i;
+	char *buf;
+	size_t i;
+	ssize_t res;
 
-	fill_buffer(fd, buf);
-	// read string from buffer
-	printf("%s\n", buf);
-	free(buf);
-	return (NULL);
+	i = 0;
+	buf = ft_calloc(buf_size, sizeof(char));
+	if (!buf)
+		return (NULL);
+	while (res > 0 && i < buf_size)
+	{
+		res = read(fd, buf + i, 1);
+		if (buf[i] == '\n')
+			break;
+		i++;
+	}
+	// EOF check
+	if (!*buf)
+		return (NULL);
+	return (buf);
 }
