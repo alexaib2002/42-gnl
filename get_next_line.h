@@ -6,7 +6,7 @@
 /*   By: aaibar-h <aaibar-h@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 09:04:12 by aaibar-h          #+#    #+#             */
-/*   Updated: 2023/03/04 21:16:44 by aaibar-h         ###   ########.fr       */
+/*   Updated: 2023/03/05 11:32:35 by aaibar-h         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,9 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <stddef.h>
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 42
+# endif
 
 /*******************
 * Type declarations
@@ -43,10 +46,9 @@ char	*get_next_line(int fd);
 void	*ft_calloc(size_t nmemb, size_t size);
 void	*ft_bzero(void *s, size_t n);
 
-
 /**
- * @brief Copies the 'content' string into a new node's content. Serves as replacement
- * for calling both memcpy and lstnew
+ * @brief Copies the 'content' string into a new node's content.
+ * Serves as replacement for calling both memcpy and lstnew
  * @param content Origin string
  * @return Node created
  */

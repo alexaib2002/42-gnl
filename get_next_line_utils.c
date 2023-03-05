@@ -6,13 +6,11 @@
 /*   By: aaibar-h <aaibar-h@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 09:04:15 by aaibar-h          #+#    #+#             */
-/*   Updated: 2023/03/05 00:44:17 by aaibar-h         ###   ########.fr       */
+/*   Updated: 2023/03/05 11:33:49 by aaibar-h         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-
-const static size_t buf_size = 5; // TODO replace by BUFSIZE
 
 void	*ft_calloc(size_t nmemb, size_t size)
 {
@@ -64,18 +62,17 @@ static size_t	ft_lstsize(t_list *lst)
 	return (c);
 }
 
-
 t_list	*ft_strlstnew(char *content)
 {
 	t_list	*node;
-	size_t i;
+	size_t	i;
 
 	node = malloc(sizeof(t_list));
 	i = 0;
 	if (!node)
 		return (NULL);
-	node->content = ft_calloc(buf_size, sizeof(char));
-	while (i < buf_size)
+	node->content = ft_calloc(BUFFER_SIZE, sizeof(char));
+	while (i < BUFFER_SIZE)
 	{
 		((char *) node->content)[i] = content[i];
 		i++;
@@ -113,12 +110,12 @@ char	*ft_merge_strlst(t_list *lst)
 	size_t	i;
 	size_t	j;
 
-	str = ft_calloc(ft_lstsize(lst) * buf_size, sizeof(char));
+	str = ft_calloc(ft_lstsize(lst) * BUFFER_SIZE, sizeof(char));
 	i = 0;
 	while (lst && *((unsigned char *) lst->content))
 	{
 		j = 0;
-		while (j < buf_size)
+		while (j < BUFFER_SIZE)
 			str[i++] = ((unsigned char *) lst->content)[j++];
 		lst = lst->next;
 	}
