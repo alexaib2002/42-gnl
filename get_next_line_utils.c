@@ -6,7 +6,7 @@
 /*   By: aaibar-h <aaibar-h@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 09:04:15 by aaibar-h          #+#    #+#             */
-/*   Updated: 2023/03/05 11:33:49 by aaibar-h         ###   ########.fr       */
+/*   Updated: 2023/03/05 12:50:12 by aaibar-h         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,9 @@ void	*ft_calloc(size_t nmemb, size_t size)
 	size_t	i;
 
 	mem = malloc(nmemb * size);
-	i = size;
+	i = size * nmemb;
 	while (i)
-		mem[i--] = 0;
+		mem[--i] = 0;
 	return (mem);
 }
 
