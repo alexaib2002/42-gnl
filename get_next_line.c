@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aaibar-h <aaibar-h@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: alexaib <alexaib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 09:04:10 by aaibar-h          #+#    #+#             */
-/*   Updated: 2023/03/05 13:19:46 by aaibar-h         ###   ########.fr       */
+/*   Updated: 2023/03/05 15:27:26 by alexaib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ char	*get_next_line(int fd)
 		return (NULL);
 	res = 1;
 	buflst = NULL;
+	final_str = NULL;
 	while (res > 0)
 	{
 		i = 0;
@@ -36,14 +37,13 @@ char	*get_next_line(int fd)
 			i++;
 		}
 		ft_lstadd_back(&buflst, ft_strlstnew(buf));
-		if (buf[i] == '\n') // crashes at second iteration of main func
+		if (buf[i] == '\n')
 			break ;
 		ft_bzero(buf, BUFFER_SIZE);
 	}
-	if (!*buf)
-		return (NULL);
+	if (*buf)
+		final_str = ft_merge_strlst(buflst);
 	free(buf);
-	final_str = ft_merge_strlst(buflst);
 	ft_lstclear(&buflst, &free);
 	return (final_str);
 }
