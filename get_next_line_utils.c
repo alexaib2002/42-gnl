@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aaibar-h <aaibar-h@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: alexaib <alexaib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 09:04:15 by aaibar-h          #+#    #+#             */
-/*   Updated: 2023/03/05 12:50:12 by aaibar-h         ###   ########.fr       */
+/*   Updated: 2023/03/05 15:36:39 by alexaib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ t_list	*ft_strlstnew(char *content)
 	if (!node)
 		return (NULL);
 	node->content = ft_calloc(BUFFER_SIZE, sizeof(char));
-	while (i < BUFFER_SIZE)
+	while (i < BUFFER_SIZE && content[i] != '\n')
 	{
 		((char *) node->content)[i] = content[i];
 		i++;
