@@ -1,13 +1,13 @@
 BIN=gnl.out
+BUFFER_SIZE=5
 
 CC=gcc
-CFLAGS=-Wall -Werror -Wextra
+# CFLAGS=-Wall -Werror -Wextra
 DEBUG_FLAGS=-fsanitize=address -g
+SIZE_FLAG=-DBUFFER_SIZE=$(BUFFER_SIZE)
 
 SRCS=get_next_line.c get_next_line_utils.c main.c
 OBJS=$(SRCS:.c=.o)
-
-BUFFER_SIZE=42
 
 .PHONY: all run clean fclean $(NAME)
 
@@ -29,4 +29,4 @@ $(BIN): $(OBJS)
 	@$(CC) $(DEBUG_FLAGS) -o $(BIN) $(OBJS)
 
 %.o: %.c
-	@$(CC) $(CFLAGS) $(DEBUG_FLAGS) -o $@ -c $<
+	@$(CC) $(CFLAGS) $(DEBUG_FLAGS) $(SIZE_FLAG) -o $@ -c $<
