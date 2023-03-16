@@ -3,39 +3,56 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alexaib <alexaib@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aaibar-h <aaibar-h@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 09:04:10 by aaibar-h          #+#    #+#             */
-/*   Updated: 2023/03/05 15:27:26 by alexaib          ###   ########.fr       */
+/*   Updated: 2023/03/16 16:16:04 by aaibar-h         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
+static void mov_buf(char *buf)
+{
+	size_t i;
+	size_t j;
+
+	i = 0;
+	j = 0;
+	while (i < BUFFER_SIZE)
+	{
+		if (i > 0 && buf[i - 1] == '\n')
+			break ;
+		i++;
+	}
+	while (buf[i])
+		buf[j++] = buf[i++];
+	while (buf[j])
+		buf[j++] = 0;
+}
+
+
 char	*get_next_line(int fd)
 {
-	char	*buf;
+	static char	*buf = NULL;
 	char	*final_str;
 	t_list	*buflst;
 	size_t	i;
 	ssize_t	res;
 
-	buf = ft_calloc(BUFFER_SIZE + 1, sizeof(char));
-	if (!buf)
-		return (NULL);
 	res = 1;
 	buflst = NULL;
 	final_str = NULL;
+	if (buf == NULL)
+		buf = ft_calloc(BUFFER_SIZE + 1, sizeof(char));
 	while (res > 0)
 	{
 		i = 0;
-		while (i < BUFFER_SIZE)
-		{
-			res = read(fd, buf + i, 1);
-			if (buf[i] == '\n')
-				break ;
+		// if (buf[i] != '\n' && i == 0)
+		if (!buf[i])
+			res = read(fd, buf, BUFFER_SIZE);
+		while (i < BUFFER_SIZE && buf[i] && buf[i] != '\n')
 			i++;
-		}
 		ft_lstadd_back(&buflst, ft_strlstnew(buf));
 		if (buf[i] == '\n')
 			break ;
@@ -43,7 +60,10 @@ char	*get_next_line(int fd)
 	}
 	if (*buf)
 		final_str = ft_merge_strlst(buflst);
-	free(buf);
+	if (!res)
+		free(buf);
+	else
+		mov_buf(buf);
 	ft_lstclear(&buflst, &free);
 	return (final_str);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aaibar-h <aaibar-h@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: aaibar-h <aaibar-h@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 09:04:15 by aaibar-h          #+#    #+#             */
-/*   Updated: 2023/03/05 12:50:12 by aaibar-h         ###   ########.fr       */
+/*   Updated: 2023/03/16 16:05:31 by aaibar-h         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,12 +42,6 @@ static t_list	*ft_lstlast(t_list *lst)
 		return (ft_lstlast(lst->next));
 	else
 		return (lst);
-}
-
-static void	ft_lstdelone(t_list *lst, void (*del)(void *))
-{
-	del(lst->content);
-	free(lst);
 }
 
 static size_t	ft_lstsize(t_list *lst)
@@ -100,7 +94,8 @@ void	ft_lstclear(t_list **lst, void (*del)(void *))
 		return ;
 	if ((*lst)->next)
 		ft_lstclear(&((*lst)->next), del);
-	ft_lstdelone(*lst, del);
+	del((*lst)->content);
+	free(*lst);
 	*lst = NULL;
 }
 
@@ -110,13 +105,18 @@ char	*ft_merge_strlst(t_list *lst)
 	size_t	i;
 	size_t	j;
 
+	// FIXME malloc only necessary chars
 	str = ft_calloc(ft_lstsize(lst) * BUFFER_SIZE, sizeof(char));
 	i = 0;
 	while (lst && *((unsigned char *) lst->content))
 	{
 		j = 0;
-		while (j < BUFFER_SIZE)
+		while (j < BUFFER_SIZE && ((unsigned char *) lst->content)[j])
+		{
 			str[i++] = ((unsigned char *) lst->content)[j++];
+			if (((unsigned char *) lst->content)[j - 1] == '\n')
+				break ;
+		}
 		lst = lst->next;
 	}
 	return (str);
