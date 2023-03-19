@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alexaib <alexaib@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aaibar-h <aaibar-h@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 12:21:00 by aaibar-h          #+#    #+#             */
-/*   Updated: 2023/03/05 15:40:38 by alexaib          ###   ########.fr       */
+/*   Updated: 2023/03/16 16:33:24 by aaibar-h         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,14 @@ static void file1_gnl() {
 	// first, try reading from file
 	fildes = open("test.txt", O_RDONLY);
 	line = get_next_line(fildes);
-	i = 0;
+	i = 1;
 	while (line) {
 		printf("Linea %i: %s", i++, line);
 		free(line);
 		line = get_next_line(fildes);
 	}
-	free(line);
+	if (line)
+		free(line);
 }
 
 static void stdio_gnl() {
