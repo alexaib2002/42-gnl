@@ -6,7 +6,7 @@
 /*   By: aaibar-h <aaibar-h@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 09:04:10 by aaibar-h          #+#    #+#             */
-/*   Updated: 2023/03/16 16:36:00 by aaibar-h         ###   ########.fr       */
+/*   Updated: 2023/03/20 18:53:19 by aaibar-h         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,13 +52,12 @@ char	*get_next_line(int fd)
 			res = read(fd, buf, BUFFER_SIZE);
 		while (i < BUFFER_SIZE && buf[i] && buf[i] != '\n')
 			i++;
-		// TODO buffer may be filled by 0 at this point, should check that...
 		ft_lstadd_back(&buflst, ft_strlstnew(buf));
 		if (buf[i] == '\n')
 			break ;
 		ft_bzero(buf, BUFFER_SIZE);
 	}
-	if (*buf)
+	if (*buf || ft_lstsize(buflst) > 0)
 		final_str = ft_merge_strlst(buflst);
 	if (!res)
 	{

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alexaib <alexaib@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aaibar-h <aaibar-h@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 09:04:12 by aaibar-h          #+#    #+#             */
-/*   Updated: 2023/03/14 17:42:59 by alexaib          ###   ########.fr       */
+/*   Updated: 2023/03/20 17:48:05 by aaibar-h         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ void	*ft_bzero(void *s, size_t n);
 t_list	*ft_strlstnew(char *content);
 void	ft_lstadd_back(t_list **lst, t_list *new);
 void	ft_lstclear(t_list **lst, void (*del)(void *));
+size_t	ft_lstsize(t_list *lst);
 char	*ft_merge_strlst(t_list *lst);
 
 #endif
