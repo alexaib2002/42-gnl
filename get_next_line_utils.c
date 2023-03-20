@@ -6,7 +6,7 @@
 /*   By: aaibar-h <aaibar-h@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 09:04:15 by aaibar-h          #+#    #+#             */
-/*   Updated: 2023/03/19 22:56:52 by aaibar-h         ###   ########.fr       */
+/*   Updated: 2023/03/20 18:40:17 by aaibar-h         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,9 +77,22 @@ t_list	*ft_strlstnew(char *content)
 
 void	ft_lstadd_back(t_list **lst, t_list *new)
 {
+	size_t			s;
+	unsigned char	filled;
+
 	if (!lst)
 		return ;
-	if (new)
+	s = 0;
+	filled = 0;
+	while (s < BUFFER_SIZE && !filled)
+	{
+		if (((unsigned char *) new->content)[s])
+			filled = 1;
+		s++;
+	}
+	if (!filled)
+		ft_lstclear(&new, &free);
+	if (new && filled)
 	{
 		if (*lst)
 			ft_lstlast(*lst)->next = new;
