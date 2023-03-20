@@ -6,7 +6,7 @@
 /*   By: aaibar-h <aaibar-h@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 12:21:00 by aaibar-h          #+#    #+#             */
-/*   Updated: 2023/03/16 16:33:24 by aaibar-h         ###   ########.fr       */
+/*   Updated: 2023/03/20 18:41:17 by aaibar-h         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ static void stdio_gnl() {
 
 int main() {
 	file1_gnl();
+	printf("\n");
 	stdio_gnl();
 	// TODO implement checks for
 	//  empty file
