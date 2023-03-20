@@ -6,7 +6,7 @@
 /*   By: aaibar-h <aaibar-h@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 09:04:15 by aaibar-h          #+#    #+#             */
-/*   Updated: 2023/03/20 18:40:17 by aaibar-h         ###   ########.fr       */
+/*   Updated: 2023/03/20 18:52:12 by aaibar-h         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,41 +58,37 @@ size_t	ft_lstsize(t_list *lst)
 
 t_list	*ft_strlstnew(char *content)
 {
-	t_list	*node;
-	size_t	i;
+	t_list			*node;
+	size_t			i;
+	unsigned char	filled;
 
 	node = malloc(sizeof(t_list));
 	i = 0;
+	filled = 0;
 	if (!node)
 		return (NULL);
 	node->content = ft_calloc(BUFFER_SIZE, sizeof(char));
 	while (i < BUFFER_SIZE)
 	{
 		((char *) node->content)[i] = content[i];
+		if (((char *) node->content)[i])
+			filled = 1;
 		i++;
 	}
 	node->next = NULL;
+	if (!filled)
+	{
+		ft_lstclear(&node, &free);
+		node = NULL;
+	}
 	return (node);
 }
 
 void	ft_lstadd_back(t_list **lst, t_list *new)
 {
-	size_t			s;
-	unsigned char	filled;
-
 	if (!lst)
 		return ;
-	s = 0;
-	filled = 0;
-	while (s < BUFFER_SIZE && !filled)
-	{
-		if (((unsigned char *) new->content)[s])
-			filled = 1;
-		s++;
-	}
-	if (!filled)
-		ft_lstclear(&new, &free);
-	if (new && filled)
+	if (new)
 	{
 		if (*lst)
 			ft_lstlast(*lst)->next = new;
