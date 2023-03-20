@@ -44,9 +44,9 @@ static t_list	*ft_lstlast(t_list *lst)
 		return (lst);
 }
 
-static size_t	ft_lstsize(t_list *lst)
+size_t	ft_lstsize(t_list *lst)
 {
-	int	c;
+	size_t	c;
 
 	if (!lst)
 		return (0);
