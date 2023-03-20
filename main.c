@@ -6,7 +6,7 @@
 /*   By: aaibar-h <aaibar-h@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 12:21:00 by aaibar-h          #+#    #+#             */
-/*   Updated: 2023/03/20 18:41:17 by aaibar-h         ###   ########.fr       */
+/*   Updated: 2023/03/20 19:14:49 by aaibar-h         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,11 @@
 #include <stdio.h>
 #include <stdio.h>
 
-static void file1_gnl() {
-	int		fildes;
+static void read_file_fildes(const int fildes) {
 	char	*line;
 	int		i;
-
-	// first, try reading from file
-	fildes = open("test.txt", O_RDONLY);
+	
+	printf("\n==Starting file read==\n");
 	line = get_next_line(fildes);
 	i = 1;
 	while (line) {
@@ -31,6 +29,11 @@ static void file1_gnl() {
 	}
 	if (line)
 		free(line);
+	printf("\n==Reached EOF==\n");
+}
+
+static void read_file_gnl(const char *file_name) {
+	read_file_fildes(open(file_name, O_RDONLY));	
 }
 
 static void stdio_gnl() {
@@ -41,11 +44,9 @@ static void stdio_gnl() {
 }
 
 int main() {
-	file1_gnl();
-	printf("\n");
-	stdio_gnl();
-	// TODO implement checks for
-	//  empty file
-	//  invalid fd
+	read_file_gnl("test.txt");	// Test for generic file
+	stdio_gnl();				// Test for stdio fildes
+	read_file_gnl("empty.txt");	// Test for empty file
+	read_file_fildes(11037);	// Test for invalid fildes
 	return 0;
 }
