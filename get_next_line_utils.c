@@ -6,7 +6,7 @@
 /*   By: aaibar-h <aaibar-h@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 09:04:15 by aaibar-h          #+#    #+#             */
-/*   Updated: 2023/03/16 16:28:49 by aaibar-h         ###   ########.fr       */
+/*   Updated: 2023/03/19 22:56:52 by aaibar-h         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,8 @@ char	*ft_merge_strlst(t_list *lst)
 	size_t	j;
 
 	// FIXME malloc only necessary chars
+	if (!lst)
+		return (NULL);
 	str = ft_calloc((ft_lstsize(lst) * BUFFER_SIZE) + 1, sizeof(char));
 	i = 0;
 	while (lst && *((unsigned char *) lst->content))
