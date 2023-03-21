@@ -6,7 +6,7 @@
 /*   By: aaibar-h <aaibar-h@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 09:04:15 by aaibar-h          #+#    #+#             */
-/*   Updated: 2023/03/21 14:54:21 by aaibar-h         ###   ########.fr       */
+/*   Updated: 2023/03/21 14:56:08 by aaibar-h         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,23 +74,6 @@ t_list	*ft_strlstnew(char *content)
 	return (node);
 }
 
-void	ft_lstadd_back(t_list **lst, t_list *new)
-{
-	if (!lst)
-		return ;
-	if (new)
-	{
-		if (*lst)
-		{
-			while ((*lst)->next)
-				lst = &((*lst)->next);
-			(*lst)->next = new;
-		}
-		else
-			*lst = new;
-	}
-}
-
 void	ft_lstclear(t_list **lst, void (*del)(void *))
 {
 	if (!lst || !*lst || !del)
@@ -100,29 +83,4 @@ void	ft_lstclear(t_list **lst, void (*del)(void *))
 	del((*lst)->content);
 	free(*lst);
 	*lst = NULL;
-}
-
-char	*ft_merge_strlst(t_list *lst)
-{
-	char	*str;
-	size_t	i;
-	size_t	j;
-
-	// FIXME malloc only necessary chars
-	if (!lst)
-		return (NULL);
-	str = ft_calloc((ft_lstsize(lst) * BUFFER_SIZE) + 1, sizeof(char));
-	i = 0;
-	while (lst && *((unsigned char *) lst->content))
-	{
-		j = 0;
-		while (j < BUFFER_SIZE && ((unsigned char *) lst->content)[j])
-		{
-			str[i++] = ((unsigned char *) lst->content)[j++];
-			if (((unsigned char *) lst->content)[j - 1] == '\n')
-				break ;
-		}
-		lst = lst->next;
-	}
-	return (str);
 }
