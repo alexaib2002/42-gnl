@@ -6,7 +6,7 @@
 /*   By: aaibar-h <aaibar-h@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 12:21:00 by aaibar-h          #+#    #+#             */
-/*   Updated: 2023/03/20 19:14:49 by aaibar-h         ###   ########.fr       */
+/*   Updated: 2023/03/21 16:25:31 by aaibar-h         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,13 @@ static void stdio_gnl() {
 }
 
 int main() {
+	printf("... Testing %s ...\n", "Read from generic file");
 	read_file_gnl("test.txt");	// Test for generic file
+	printf("... Testing %s ...\n", "Read from stdio descriptor");
 	stdio_gnl();				// Test for stdio fildes
+	printf("... Testing %s ...\n", "Read from empty file");
 	read_file_gnl("empty.txt");	// Test for empty file
+	printf("... Testing %s ...\n", "Read from invalid file descriptor");
 	read_file_fildes(11037);	// Test for invalid fildes
 	return 0;
 }
