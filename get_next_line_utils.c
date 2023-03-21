@@ -6,7 +6,7 @@
 /*   By: aaibar-h <aaibar-h@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 09:04:15 by aaibar-h          #+#    #+#             */
-/*   Updated: 2023/03/20 18:52:12 by aaibar-h         ###   ########.fr       */
+/*   Updated: 2023/03/21 14:54:21 by aaibar-h         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,16 +32,6 @@ void	*ft_bzero(void *s, size_t n)
 	while (n--)
 		*(unsigned char *)(s++) = 0;
 	return ((void *) ptr);
-}
-
-static t_list	*ft_lstlast(t_list *lst)
-{
-	if (!lst)
-		return (NULL);
-	if (lst->next)
-		return (ft_lstlast(lst->next));
-	else
-		return (lst);
 }
 
 size_t	ft_lstsize(t_list *lst)
@@ -91,7 +81,11 @@ void	ft_lstadd_back(t_list **lst, t_list *new)
 	if (new)
 	{
 		if (*lst)
-			ft_lstlast(*lst)->next = new;
+		{
+			while ((*lst)->next)
+				lst = &((*lst)->next);
+			(*lst)->next = new;
+		}
 		else
 			*lst = new;
 	}
