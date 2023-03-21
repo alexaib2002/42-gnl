@@ -6,16 +6,16 @@
 /*   By: aaibar-h <aaibar-h@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 09:04:10 by aaibar-h          #+#    #+#             */
-/*   Updated: 2023/03/20 18:53:19 by aaibar-h         ###   ########.fr       */
+/*   Updated: 2023/03/21 14:40:09 by aaibar-h         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-static void mov_buf(char *buf)
+static void	mov_buf(char *buf)
 {
-	size_t i;
-	size_t j;
+	size_t	i;
+	size_t	j;
 
 	i = 0;
 	j = 0;
@@ -35,10 +35,10 @@ static void mov_buf(char *buf)
 char	*get_next_line(int fd)
 {
 	static char	*buf = NULL;
-	char	*final_str;
-	t_list	*buflst;
-	size_t	i;
-	ssize_t	res;
+	char		*final_str;
+	t_list		*buflst;
+	size_t		i;
+	ssize_t		res;
 
 	res = 1;
 	buflst = NULL;
