@@ -6,7 +6,7 @@
 /*   By: aaibar-h <aaibar-h@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 09:04:10 by aaibar-h          #+#    #+#             */
-/*   Updated: 2023/03/21 16:34:48 by aaibar-h         ###   ########.fr       */
+/*   Updated: 2023/03/21 19:53:50 by aaibar-h         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,25 +96,27 @@ static size_t	read_next_line(int fd, char *buf, t_list **buflst)
 
 char	*get_next_line(int fd)
 {
-	static char	*buf = NULL;
+	static char	**buf = NULL;
 	char		*final_str;
 	t_list		*buflst;
 	ssize_t		res;
 
 	buflst = NULL;
 	final_str = NULL;
-	if (buf == NULL)
-		buf = ft_calloc(BUFFER_SIZE + 1, sizeof(char));
-	res = read_next_line(fd, buf, &buflst);
-	if (*buf || ft_lstsize(buflst) > 0)
+	if (!buf)
+		buf = ft_calloc(MAX_FD, sizeof(unsigned char **));
+	if (fd < MAX_FD && !buf[fd])
+		buf[fd] = ft_calloc(BUFFER_SIZE + 1, sizeof(char));
+	res = read_next_line(fd, buf[fd], &buflst);
+	if (*buf[fd] || ft_lstsize(buflst) > 0)
 		final_str = ft_merge_strlst(buflst);
 	if (res <= 0)
 	{
-		free(buf);
-		buf = NULL;
+		free(buf[fd]);
+		buf[fd] = NULL;
 	}
 	else
-		mov_buf(buf);
+		mov_buf(buf[fd]);
 	ft_lstclear(&buflst, &free);
 	return (final_str);
 }

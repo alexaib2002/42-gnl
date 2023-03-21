@@ -6,7 +6,7 @@
 /*   By: aaibar-h <aaibar-h@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 09:04:12 by aaibar-h          #+#    #+#             */
-/*   Updated: 2023/03/20 17:48:05 by aaibar-h         ###   ########.fr       */
+/*   Updated: 2023/03/21 19:47:56 by aaibar-h         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,9 @@
 # include <stddef.h>
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 42
+# endif
+# ifndef MAX_FD
+#  define MAX_FD 65536
 # endif
 
 /*******************

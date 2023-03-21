@@ -2,7 +2,7 @@ BIN=gnl.out
 BUFFER_SIZE=5
 
 CC=gcc
-CFLAGS=-Wall -Werror -Wextra
+# CFLAGS=-Wall -Werror -Wextra
 DEBUG_FLAGS=-fsanitize=address -g -fno-builtin
 SIZE_FLAG=-DBUFFER_SIZE=$(BUFFER_SIZE)
 
@@ -15,6 +15,8 @@ all: $(NAME)
 
 run: $(BIN)
 	@./$(BIN)
+
+bonus: $(BIN)
 
 clean:
 	@rm -f $(OBJS)
