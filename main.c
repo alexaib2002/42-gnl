@@ -6,7 +6,7 @@
 /*   By: aaibar-h <aaibar-h@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 12:21:00 by aaibar-h          #+#    #+#             */
-/*   Updated: 2023/03/21 16:25:31 by aaibar-h         ###   ########.fr       */
+/*   Updated: 2023/03/21 20:06:26 by aaibar-h         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static void read_file_fildes(const int fildes) {
 }
 
 static void read_file_gnl(const char *file_name) {
-	read_file_fildes(open(file_name, O_RDONLY));	
+	read_file_fildes(open(file_name, O_RDONLY));
 }
 
 static void stdio_gnl() {
@@ -43,7 +43,27 @@ static void stdio_gnl() {
 	free(line);
 }
 
+static void read_conc_gnl() {
+	int fds[3];
+	fds[0] = open("file1.txt", O_RDONLY);
+	fds[1] = open("file2.txt", O_RDONLY);
+	fds[2] = open("file3.txt", O_RDONLY);
+	char *line = "";
+	while (line) {
+		int i = 0;
+		while (i < 3) {
+			line = get_next_line(fds[i++]);
+			if (line) {
+				printf("%i: %s\n", i, line);
+				free(line);
+			}
+		}
+	}
+}
+
 int main() {
+	read_conc_gnl();
+	return ;
 	printf("... Testing %s ...\n", "Read from generic file");
 	read_file_gnl("test.txt");	// Test for generic file
 	printf("... Testing %s ...\n", "Read from stdio descriptor");
