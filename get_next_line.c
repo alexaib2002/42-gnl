@@ -6,13 +6,13 @@
 /*   By: aaibar-h <aaibar-h@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 09:04:10 by aaibar-h          #+#    #+#             */
-/*   Updated: 2023/03/21 14:56:54 by aaibar-h         ###   ########.fr       */
+/*   Updated: 2023/03/21 16:27:40 by aaibar-h         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-static void	ft_lstadd_back(t_list **lst, t_list *new)
+void	ft_lstadd_back(t_list **lst, t_list *new)
 {
 	if (!lst)
 		return ;
@@ -29,7 +29,7 @@ static void	ft_lstadd_back(t_list **lst, t_list *new)
 	}
 }
 
-static char	*ft_merge_strlst(t_list *lst)
+char	*ft_merge_strlst(t_list *lst)
 {
 	char	*str;
 	size_t	i;
@@ -73,20 +73,12 @@ static void	mov_buf(char *buf)
 		buf[j++] = 0;
 }
 
-
-char	*get_next_line(int fd)
+static size_t	read_next_line(int fd, char *buf, t_list **buflst)
 {
-	static char	*buf = NULL;
-	char		*final_str;
-	t_list		*buflst;
-	size_t		i;
-	ssize_t		res;
+	size_t	i;
+	ssize_t	res;
 
 	res = 1;
-	buflst = NULL;
-	final_str = NULL;
-	if (buf == NULL)
-		buf = ft_calloc(BUFFER_SIZE + 1, sizeof(char));
 	while (res > 0)
 	{
 		i = 0;
@@ -94,14 +86,30 @@ char	*get_next_line(int fd)
 			res = read(fd, buf, BUFFER_SIZE);
 		while (i < BUFFER_SIZE && buf[i] && buf[i] != '\n')
 			i++;
-		ft_lstadd_back(&buflst, ft_strlstnew(buf));
+		ft_lstadd_back(buflst, ft_strlstnew(buf));
 		if (buf[i] == '\n')
 			break ;
 		ft_bzero(buf, BUFFER_SIZE);
 	}
+	return (res);
+}
+
+
+char	*get_next_line(int fd)
+{
+	static char	*buf = NULL;
+	char		*final_str;
+	t_list		*buflst;
+	ssize_t		res;
+
+	buflst = NULL;
+	final_str = NULL;
+	if (buf == NULL)
+		buf = ft_calloc(BUFFER_SIZE + 1, sizeof(char));
+	res = read_next_line(fd, buf, &buflst);
 	if (*buf || ft_lstsize(buflst) > 0)
 		final_str = ft_merge_strlst(buflst);
-	if (!res)
+	if (res <= 0)
 	{
 		free(buf);
 		buf = NULL;
