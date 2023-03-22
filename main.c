@@ -6,7 +6,7 @@
 /*   By: aaibar-h <aaibar-h@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 12:21:00 by aaibar-h          #+#    #+#             */
-/*   Updated: 2023/03/21 16:25:31 by aaibar-h         ###   ########.fr       */
+/*   Updated: 2023/03/22 18:13:24 by aaibar-h         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ static void stdio_gnl() {
 }
 
 int main() {
+	printf("Buffer size: %li\n", BUFFER_SIZE);
 	printf("... Testing %s ...\n", "Read from generic file");
 	read_file_gnl("test.txt");	// Test for generic file
 	printf("... Testing %s ...\n", "Read from stdio descriptor");
