@@ -6,7 +6,7 @@
 /*   By: aaibar-h <aaibar-h@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 09:04:10 by aaibar-h          #+#    #+#             */
-/*   Updated: 2023/03/21 16:34:48 by aaibar-h         ###   ########.fr       */
+/*   Updated: 2023/03/22 18:56:39 by aaibar-h         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,14 @@ static void	mov_buf(char *buf)
 		buf[j++] = 0;
 }
 
+ssize_t	unreliable_read(int __fd, void *__buf, size_t __nbytes)
+{
+	if (!fails)
+		return read(__fd, __buf, __nbytes);
+	fails = 0;
+	return -1;
+}
+
 static size_t	read_next_line(int fd, char *buf, t_list **buflst)
 {
 	size_t	i;
@@ -82,7 +90,7 @@ static size_t	read_next_line(int fd, char *buf, t_list **buflst)
 	{
 		i = 0;
 		if (!buf[i])
-			res = read(fd, buf, BUFFER_SIZE);
+			res = unreliable_read(fd, buf, BUFFER_SIZE);
 		while (i < BUFFER_SIZE && buf[i] && buf[i] != '\n')
 			i++;
 		ft_lstadd_back(buflst, ft_strlstnew(buf));
@@ -106,7 +114,7 @@ char	*get_next_line(int fd)
 	if (buf == NULL)
 		buf = ft_calloc(BUFFER_SIZE + 1, sizeof(char));
 	res = read_next_line(fd, buf, &buflst);
-	if (*buf || ft_lstsize(buflst) > 0)
+	if ((*buf || ft_lstsize(buflst) > 0) && res >= 0)
 		final_str = ft_merge_strlst(buflst);
 	if (res <= 0)
 	{

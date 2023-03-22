@@ -6,7 +6,7 @@
 /*   By: aaibar-h <aaibar-h@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 12:21:00 by aaibar-h          #+#    #+#             */
-/*   Updated: 2023/03/22 18:13:24 by aaibar-h         ###   ########.fr       */
+/*   Updated: 2023/03/22 18:53:58 by aaibar-h         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 #include <fcntl.h>
 #include <stdio.h>
 #include <stdio.h>
+
+char fails = 0;
 
 static void read_file_fildes(const int fildes) {
 	char	*line;
@@ -25,6 +27,8 @@ static void read_file_fildes(const int fildes) {
 	while (line) {
 		printf("Linea %i: %s", i++, line);
 		free(line);
+		if (i == 3)
+			fails = 1;
 		line = get_next_line(fildes);
 	}
 	if (line)

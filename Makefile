@@ -1,5 +1,5 @@
 BIN=gnl.out
-BUFFER_SIZE=5
+BUFFER_SIZE=10
 
 CC=gcc
 CFLAGS=-Wall -Werror -Wextra

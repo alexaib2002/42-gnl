@@ -6,7 +6,7 @@
 /*   By: aaibar-h <aaibar-h@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 09:04:12 by aaibar-h          #+#    #+#             */
-/*   Updated: 2023/03/20 17:48:05 by aaibar-h         ###   ########.fr       */
+/*   Updated: 2023/03/22 18:50:54 by aaibar-h         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,9 @@
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 42
 # endif
+
+// Debug variables
+extern char fails;
 
 /*******************
 * Type declarations
