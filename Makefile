@@ -7,7 +7,9 @@ DEBUG_FLAGS=-fsanitize=address -g -fno-builtin
 SIZE_FLAG=-DBUFFER_SIZE=$(BUFFER_SIZE)
 
 SRCS=get_next_line.c get_next_line_utils.c main.c
+SRCS_BONUS=get_next_line_bonus.c get_next_line_utils_bonus.c
 OBJS=$(SRCS:.c=.o)
+OBJS_BONUS=$(SRCS_BONUS:.c=.o)
 
 .PHONY: all run clean fclean $(NAME)
 
@@ -16,7 +18,7 @@ all: $(NAME)
 run: $(BIN)
 	@./$(BIN)
 
-bonus: $(BIN)
+bonus: $(OBJS_BONUS)
 
 clean:
 	@rm -f $(OBJS)
