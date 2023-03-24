@@ -6,7 +6,7 @@
 /*   By: aaibar-h <aaibar-h@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 09:04:10 by aaibar-h          #+#    #+#             */
-/*   Updated: 2023/03/21 19:53:50 by aaibar-h         ###   ########.fr       */
+/*   Updated: 2023/03/24 10:48:13 by aaibar-h         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ char	*get_next_line(int fd)
 	buflst = NULL;
 	final_str = NULL;
 	if (!buf)
-		buf = ft_calloc(MAX_FD, sizeof(unsigned char **));
+		buf = ft_calloc(MAX_FD, sizeof(unsigned char *));
 	if (fd < MAX_FD && !buf[fd])
 		buf[fd] = ft_calloc(BUFFER_SIZE + 1, sizeof(char));
 	res = read_next_line(fd, buf[fd], &buflst);
