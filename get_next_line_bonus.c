@@ -6,7 +6,7 @@
 /*   By: aaibar-h <aaibar-h@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/24 11:12:57 by aaibar-h          #+#    #+#             */
-/*   Updated: 2023/03/24 11:41:03 by aaibar-h         ###   ########.fr       */
+/*   Updated: 2023/03/24 11:55:20 by aaibar-h         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,19 +97,19 @@ static size_t	read_next_line(int fd, char *buf, t_list **buflst)
 
 char	*get_next_line(int fd)
 {
-	static char	**buf = NULL;
+	static char	*buf[MAX_FD];
 	char		*final_str;
 	t_list		*buflst;
 	ssize_t		res;
 
 	buflst = NULL;
 	final_str = NULL;
-	if (!buf)
-		buf = ft_calloc(MAX_FD, sizeof(unsigned char *));
-	if (fd > 0 && fd < MAX_FD && !buf[fd])
+	if (fd < 0 || fd > MAX_FD)
+		return (NULL);
+	if (!buf[fd])
 		buf[fd] = ft_calloc(BUFFER_SIZE + 1, sizeof(char));
 	res = read_next_line(fd, buf[fd], &buflst);
-	if (*buf[fd] || ft_lstsize(buflst) > 0)
+	if ((*buf[fd] || ft_lstsize(buflst) > 0) && res >= 0)
 		final_str = ft_merge_strlst(buflst);
 	if (res <= 0)
 	{
