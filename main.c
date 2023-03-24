@@ -6,7 +6,7 @@
 /*   By: aaibar-h <aaibar-h@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 12:21:00 by aaibar-h          #+#    #+#             */
-/*   Updated: 2023/03/21 20:06:26 by aaibar-h         ###   ########.fr       */
+/*   Updated: 2023/03/24 09:50:36 by aaibar-h         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,16 +54,16 @@ static void read_conc_gnl() {
 		while (i < 3) {
 			line = get_next_line(fds[i++]);
 			if (line) {
-				printf("%i: %s\n", i, line);
+				printf("%i: %s", i, line);
 				free(line);
 			}
 		}
+		printf("\n");
 	}
 }
 
 int main() {
 	read_conc_gnl();
-	return ;
 	printf("... Testing %s ...\n", "Read from generic file");
 	read_file_gnl("test.txt");	// Test for generic file
 	printf("... Testing %s ...\n", "Read from stdio descriptor");
