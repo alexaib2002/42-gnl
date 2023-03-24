@@ -1,0 +1,10 @@
+
+general gnl tests
+
+generic line
+
+another one
+pppp
+
+
+eof
