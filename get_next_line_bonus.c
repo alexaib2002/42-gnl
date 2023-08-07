@@ -10,7 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "get_next_line_bonus.h"
 
 void	ft_lstadd_back(t_list **lst, t_list *new)
@@ -93,7 +92,6 @@ static size_t	read_next_line(int fd, char *buf, t_list **buflst)
 	}
 	return (res);
 }
-
 
 char	*get_next_line(int fd)
 {
